@@ -1,0 +1,23 @@
+{
+  "name": "vuepress-single-pager",
+  "version": "0.0.1",
+  "description": "A ViewPress Single Pager Example",
+  "license": "MIT",
+  "type": "module",
+  "scripts": {
+    "build-github-pages": "cross-env BASE_HREF=true npm run build",
+    "build": "vuepress build . --clean-cache",
+    "dev": "vuepress dev . --clean-cache",
+    "update-package": "npx vp-update"
+  },
+  "devDependencies": {
+    "@vuepress/bundler-vite": "2.0.0-rc.19",
+    "@vuepress/helper": "2.0.0-rc.74",
+    "@vuepress/plugin-register-components": "2.0.0-rc.66",
+    "@vuepress/plugin-search": "2.0.0-rc.74",
+    "@vuepress/theme-default": "2.0.0-rc.74",
+    "cross-env": "7.0.3",
+    "sass-embedded": "1.83.4",
+    "vuepress": "2.0.0-rc.19"
+  }
+}
