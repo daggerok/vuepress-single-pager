@@ -1,0 +1,82 @@
+name: bun
+on:
+  # Allows you to reuse local workflow from other repository GitHub Actions
+  workflow_call:
+    # Map the workflow outputs to job outputs
+    outputs:
+      BUN_HOME:
+        description: "bun home directory"
+        value: ${{ jobs.bun.outputs.BUN_HOME }}
+jobs:
+  bun:
+    name: bun
+    runs-on: ubuntu-latest
+    # Declare bun job outputs
+    outputs:
+      BUN_HOME: ${{ steps.home.outputs.BUN_HOME }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+      - uses: actions/cache@v4
+        id: bun-cache
+        with:
+          path: |
+            !~/.m2
+            ~/.bun
+            ~/.local
+          key: ${{ hashFiles('**/workflows/*.yml', '**/package*.json') }}
+      - run: |
+          PATH="$HOME/.bun/bin:$PATH" command -v bun >/dev/null 2>&1 || {
+            echo >&2 "Bun is required but not installed."           ;
+            curl -fsSL https://bun.sh/install | bash                ;
+          
+            export BUN_VERSION=`${HOME}/.bun/bin/bun --version`     ;
+            echo "Installed ${BUN_VERSION} version of bun."         ;
+          
+            echo >&2 "mkdir -pv ~/.local/bin"                       ;
+            mkdir -pv ~/.local/bin                                  ;
+          
+            echo >&2 "ln -sv $HOME/.bun/bin/bun ~/.local/bin/bun"   ;
+            ln -sv $HOME/.bun/bin/bun ~/.local/bin/bun              ;
+          
+            echo >&2 "ln -sv $HOME/.bun/bin/bunx ~/.local/bin/bunx" ;
+            ln -sv $HOME/.bun/bin/bunx ~/.local/bin/bunx            ;
+          }
+      # Set bun job outputs
+      - id: home
+        run: echo "BUN_HOME=$HOME/.bun" >> $GITHUB_OUTPUT
+#Usage:
+#name: ...
+#on: [...]
+#jobs:
+#  bun:
+#    uses: ./.github/workflows/bun.yml                                            # <--- (1) we must have this job
+#  job1:
+#    runs-on: ubuntu-latest
+#    needs: bun                                                                   # <--- (2) then we depends on bun job
+#    steps:
+#      - uses: actions/checkout@v4
+#      - uses: actions/cache@v4                                                   # <--- (3) we need ~/.local/bin cache
+#        id: bun-cache
+#        with:
+#          path: |
+#            !~/.m2
+#            ~/.bun
+#            ~/.local
+#          key: ${{ hashFiles('**/workflows/*.yml', '**/package.json') }}
+#      - run: bun --help                                                          # <--- (4) now we can use bun binary
+#  job2:
+#    runs-on: ubuntu-latest
+#    needs: bun                                                                   # <--- (2)
+#    steps:
+#      - uses: actions/checkout@v4
+#      - uses: actions/cache@v4                                                   # <--- (3)
+#        id: bun-cache
+#        with:
+#          path: |
+#            !~/.m2
+#            ~/.bun
+#            ~/.local
+#          key: ${{ hashFiles('**/workflows/*.yml', '**/package.json') }}
+#      - run: bun --version                                                       # <--- (4)

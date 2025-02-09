@@ -1,0 +1,9 @@
+:root {
+  scroll-behavior: smooth;
+  --vp-c-accent: rgb(58, 172, 255);
+  --content-width: 95%
+}
+
+html.dark {
+  --vp-c-accent: rgb(0, 118, 189);
+}
