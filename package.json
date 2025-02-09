@@ -4,6 +4,14 @@
   "description": "A ViewPress Single Pager Example",
   "license": "MIT",
   "type": "module",
+  "keywords": [
+    "ts",
+    "bun",
+    "mkdirp",
+    "vuepress",
+    "gh-pages",
+    "cross-env"
+  ],
   "scripts": {
     "postinstall": "mkdirp .vuepress/dist",
     "build-github-pages": "cross-env BASE_HREF=true npm run build",
