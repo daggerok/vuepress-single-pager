@@ -1,0 +1,30 @@
+name: Tests
+on:
+  pull_request:
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  bun:
+    uses: ./.github/workflows/bun.yml # (1)
+  test:
+    needs: bun # (2)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+      - uses: actions/cache@v4
+        id: bun-cache
+        with:
+          path: |
+            !~/.m2
+            ~/.bun
+            ~/.local
+          key: ${{ hashFiles('**/workflows/*.yml', '**/package*.json') }}
+      - run: bun install -E
+      - run: bun run build
+      - run: bunx serve src/.vuepress/dist &
+      - run: bunx wait-port 3000
+      - run: curl -iv 0:3000/
+      - run: bunx npm-check-updates -u
