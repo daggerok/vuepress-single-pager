@@ -1,6 +1,7 @@
-# A Journal
-This is a journal. See why and how in
-[ICT Mentorship 2023 - Proper Learning & The Importance Of Journaling](https://youtu.be/FQqwmDJOtxk) video.
+# Journal
+This is my [journal]() based on continuous contract.
+See why and how in [ICT Mentorship 2023 - Proper Learning & The Importance Of Journaling](https://youtu.be/FQqwmDJOtxk)
+video.
 
 [[toc]]
 
