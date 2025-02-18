@@ -23,7 +23,7 @@ Use branch `gh-pages` which should be created by GitHub Actions at this point of
 Development requirements:
 
 ```bash
-nvm install --default 20.9.0 ; bun dev
+npm run dev
 ```
 
 NOTE: This `Getting started` section can be replaced with what you need... Have a nice journaling!
