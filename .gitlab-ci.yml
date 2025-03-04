@@ -1,0 +1,15 @@
+pages:
+  cache: {}
+  needs: []
+  dependencies: []
+  stage: deploy
+  image: oven/bun:1.2.4-alpine
+  variables:
+    INPUT_DIR: '.'
+    OUTPUT_DIR: './public'
+  before_script:
+  - bun install -E --cwd "$INPUT_DIR"
+  script: bun --cwd "$INPUT_DIR" build-gitlab-pages --dest "$OUTPUT_DIR"
+  artifacts:
+    paths:
+    - "$OUTPUT_DIR"
