@@ -15,6 +15,7 @@
   "scripts": {
     "postinstall": "mkdirp .vuepress/dist",
     "build-github-pages": "cross-env BASE_HREF=true npm run build",
+    "build-gitlab-pages": "cross-env BASE_HREF=true npm run build",
     "build": "vuepress build --clean-cache ./",
     "dev": "vuepress dev --clean-cache ./",
     "update-package": "npx vp-update"
