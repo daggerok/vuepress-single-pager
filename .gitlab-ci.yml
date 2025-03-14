@@ -2,6 +2,7 @@ pages:
   cache: {}
   needs: []
   dependencies: []
+  interruptible: true
   stage: deploy
   image: oven/bun:1.2.4-alpine
   variables:
